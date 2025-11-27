@@ -1,0 +1,808 @@
+/* =========================
+   1) TEMEL RESET & GENEL
+========================= */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root{
+  --bg: #ffffff;
+  --text: #111111;
+  --muted: #666666;
+  --card: #f7f7f7;
+  --accent: #000000;
+}
+
+body{
+  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+}
+/* RESPONSIVE FONT SCALE */
+h1 {
+  font-size: clamp(28px, 6vw, 44px);
+}
+
+h2 {
+  font-size: clamp(22px, 4.5vw, 32px);
+}
+
+h3 {
+  font-size: clamp(18px, 3.5vw, 26px);
+}
+
+p, a, li {
+  font-size: clamp(14px, 2.5vw, 18px);
+}
+body { padding-top: 100px; }
+
+
+.container{
+  width: min(1100px, 92%);
+  margin: 0 auto;
+}
+
+/* =========================
+   2) NAVBAR
+========================= */
+
+
+header {
+  width: 100%;
+  background: #000;
+  padding: 36px 0;
+  border-bottom: none;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 999;
+
+  transition: padding .25s ease;
+}
+
+.navbar {
+  width: 100%;
+  padding: 0 40px;
+
+  display: flex;
+  justify-content: space-between; /* uzak dursunlar */
+  align-items: center;
+
+  gap: 24px; /* logo-nav arası oranı kontrol eder */
+}
+
+/* Tek font: kod fontu */
+.logo, .nav-links a {
+  font-family: "JetBrains Mono", monospace;
+}
+
+/* Logo sabit tarafta */
+.logo {
+  font-size: 28px;
+  font-weight: 800;
+  color: #1ec05c;
+  letter-spacing: 1px;
+  flex: 0 0 auto; /* küçülmeye zorlanmasın */
+
+  transition: font-size .25s ease;
+}
+/* Logo alt çizgi */
+.logo {
+  position: relative;
+}
+
+/* Alt çizgi başlangıcı (gizli) */
+.logo::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -6px;  /* logo ile çizgi arasındaki mesafe */
+  width: 0%;
+  height: 2px;
+  background: #ffffff; /* beyaz çizgi */
+  transition: width .25s ease;
+}
+
+/* Hover olunca çizgi görünür */
+.logo:hover::after {
+  width: 100%;
+}
+
+
+/* Linkler sağda ve tek satır */
+.nav-links {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+
+  flex: 1;           /* sağ taraf genişliği alsın */
+  min-width: 0;      /* daralınca küçülmeye izin ver */
+
+  gap: clamp(8px, 2vw, 32px);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  flex-wrap: nowrap; /* alt satıra düşme YOK */
+}
+
+/* Link kutuları: daralınca küçülür ama bozulmaz */
+.nav-links a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+
+  font-size: clamp(12px, 1.6vw, 18px);          /* daralınca küçülür */
+  padding: clamp(4px, 0.8vw, 6px) clamp(8px, 1.4vw, 14px);
+  border: 2px solid #1ec05c;
+  border-radius: clamp(6px, 0.8vw, 8px);
+
+  display: inline-block;
+  white-space: nowrap;
+  line-height: 1;
+
+  position: relative;
+  flex: 0 1 auto;    /* gerekirse küçülerek sığsın */
+
+  transition: color .2s ease, transform .2s ease, font-size .25s ease;
+}
+
+/* Hover: hafif yukarı kalkma */
+.nav-links a:hover {
+  transform: translateY(-2px);
+  color: #cacaca;
+}
+
+
+
+/* Hover underline */
+.nav-links a:hover::after {
+  width: 100%;
+}
+
+/* Scroll ile aktif underline */
+.nav-links a.active::after {
+  width: 100%;
+}
+
+/* Shrink (scroll sonrası bar incelsin) */
+header.shrink {
+  padding: 18px 0;
+}
+header.shrink .logo {
+  font-size: 24px;  /* logo biraz küçülsün istiyorsan kalsın */
+}
+header.shrink .nav-links a {
+  font-size: clamp(11px, 1.3vw, 14px);
+}
+
+/* NAVBAR beyaz mod (Hakkımda bölümünde aktif olacak) */
+.nav-white .nav-links a {
+  color: #fff !important;
+  border-color: #1ec05c !important;
+}
+
+.nav-white .logo {
+  color: #ffffff !important;
+}
+
+
+
+
+
+
+
+/* =========================
+   3) HERO
+========================= */
+#hero {
+  min-height: 100vh;
+  width: 100%;
+  padding: 0;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+
+  background-image: url("assets/img/photo1.jpg");
+  background-size: cover;
+  background-position: center 45%;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+
+  position: relative;
+
+}
+
+
+
+/* Karanlık blur overlay */
+#hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(1px);
+}
+
+/* Metin */
+#hero .hero-text {
+  position: relative;
+  z-index: 2;
+  color: #fff;
+}
+
+#hero h1 {
+  font-size: clamp(32px, 5vw, 60px);
+  font-weight: 800;
+  margin-bottom: 16px;
+  
+}
+
+#hero p {
+  font-size: clamp(18px, 3vw, 24px);
+  margin-bottom: 24px;
+
+  font-family: "JetBrains Mono", monospace !important;  
+  letter-spacing: 0.5px;      
+  font-weight: 500;           
+}
+
+#hero p::before {
+  content: "< ";
+  color: #1ec05c;
+}
+
+#hero p::after {
+  content: " / >";
+  color: #1ec05c;
+}
+
+
+
+#hero .btn {
+  display: inline-block;
+  padding: 12px 24px;
+  background: #fff;
+  color: #000;
+  font-weight: 700;
+  border-radius: 10px;
+  text-decoration: none;
+  transition: transform .25s ease, opacity .25s ease;
+}
+
+#hero .btn:hover {
+  transform: scale(1.08);
+  /*buton%8büyüsün*/opacity: 0.95;
+              /* hafif şeffaflık */:;
+  -webkit-transform: scale(1.08);
+  -moz-transform: scale(1.08);
+  -ms-transform: scale(1.08);
+  -o-transform: scale(1.08);
+}
+
+
+/* =========================
+   4) HAKKIMDA KISMI
+========================= */
+
+/* Hakkımda Section */
+.about-section {
+  background: #ffffff; /* tamamen sade */
+  padding: 80px 20px;
+}
+
+/* Kutunun kendisi */
+.about-box {
+  background: #ecebeb;
+  border-radius: 20px;
+  padding: 30px 35px;
+  max-width: 1100px;  /* kutunun boyutunu ayarlıyoruz */
+  border: 2px solid #eaeaea; /* sade, temiz çerçeve */
+}
+
+/* Sola yaslamak */
+.about-box.left {
+  margin-left: 0;
+}
+
+
+.about-box.right {
+  margin-left: auto;
+  margin-right: 0;
+}
+
+/* Başlık */
+.about-box h2 {
+  font-size: 2rem;
+  margin-bottom: 18px;
+  color: #333;
+  font-weight: 700;
+
+  font-family: "JetBrains Mono", monospace !important;
+
+
+}
+
+
+/* Paragraflar */
+.about-box p {
+  font-size: 1.05rem;
+  line-height: 1.6;
+  margin-bottom: 14px;
+  color: #333;
+}
+
+/* Şiir */
+.about-box .poem {
+  border-left: 4px solid #ccc;
+  padding-left: 12px;
+  margin: 16px 0;
+  font-style: italic;
+  color: #444;
+}
+
+/* :) */
+.about-box .smile {
+  font-size: 1.6rem;
+  margin-top: 10px;
+}
+
+/* Mobil düzen */
+@media (max-width: 720px) {
+  .about-box {
+    max-width: 100%;
+  }
+}
+
+
+/* SKILLS SECTION - DARK MODE (sen de zaten buna benzer yazmıştın) */
+.skills-section {
+  background: #000;
+  padding: 80px 0;
+  color: #fff;
+}
+
+
+.skills-inner {
+  max-width: 700px;
+  /* BLOĞU HAFİF SAĞA ALMAK İÇİN: */
+  margin-left: 30%;   
+  padding: 0 20px;
+}
+
+.skills-inner h2 {
+  font-size: 2.3rem;
+  margin-bottom: 40px;
+  letter-spacing: 1px;
+  font-weight: 700;
+  text-align: left;   
+}
+
+
+.skill {
+  margin-bottom: 35px;
+  text-align: left;
+}
+
+.skill span {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 12px;
+  background: #222;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-top: 8px;
+}
+
+.progress {
+  height: 100%;
+  width: 0;
+  transition: width 1.4s ease-out;
+  border-radius: 8px;
+}
+
+
+
+
+/* Renkler */
+.progress.python { background: #1a5d95; }
+.progress.html   { background: #e34c26; }
+.progress.css    { background: #2965f1; }
+.progress.js     { background: #f7df1e; color: #000; }
+.progress.c-lang { background: #6d6dff; }
+.progress.csharp { background: #9b59b6; }
+
+/* GÖRÜNCE DOLACAK YÜZDELER – senin dediğin oranlara göre */
+.skills-section.show .progress.python { width: 75%; }
+.skills-section.show .progress.html   { width: 60%; }
+.skills-section.show .progress.css    { width: 40%; }
+.skills-section.show .progress.js     { width: 20%; }
+.skills-section.show .progress.c-lang { width: 60%; }
+.skills-section.show .progress.csharp { width: 14%; }
+
+
+/* =========================
+   5) YETENEKLER
+========================= */
+#skills .skill-list{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.skill-chip{
+  background: var(--card);
+  padding: 8px 12px;
+  border-radius: 999px;
+  font-size: 14px;
+}
+
+/* =========================
+   6) PORTFOLIO KARTLARI
+========================= */
+#portfolio .projects{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+}
+
+.project-card{
+  background: var(--card);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+  transition: 0.2s;
+}
+
+.project-card:hover{
+  transform: translateY(-4px);
+}
+
+.project-card img{
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+}
+
+.project-card .content{
+  padding: 14px;
+}
+
+.project-card h3{
+  margin-bottom: 6px;
+}
+
+/* =========================
+   7) CONTACT FORM
+========================= */
+#contact form{
+  display: grid;
+  gap: 10px;
+  max-width: 600px;
+}
+
+#contact input, #contact textarea{
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 15px;
+}
+
+#contact button{
+  padding: 12px;
+  background: var(--accent);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+#contact button:hover{
+  opacity: 0.85;
+}
+
+
+
+/* ==========================
+   PROJELER – UZUN KUTULAR
+========================== */
+
+.portfolio-section {
+  background: #fff;
+  padding: 80px 40px;
+}
+
+.portfolio-section h2 {
+  font-size: 2.3rem;
+  font-weight: 700;
+  margin-bottom: 30px;
+  color: #000;
+
+  font-family: "JetBrains Mono", monospace !important;
+  letter-spacing: 0.5px;
+}
+
+
+/* YATAY KAYDIRMA ALANI */
+.project-scroll {
+  display: flex;
+  gap: 25px;
+  overflow-x: auto;
+  padding-bottom: 15px;
+
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* PROJE KUTUSU */
+.project-box {
+  min-width: 380px;  /* uzun büyük kutu */
+  max-width: 380px;
+  background: #c9c3c3;
+  border-radius: 18px;
+  padding: 25px;
+
+  box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+  scroll-snap-align: start;
+
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+/* Hover Efekti – Kart yukarı kalkar */
+.project-box:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+}
+
+.project-box h3 {
+  font-size: 1.35rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.project-box p {
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin-bottom: 10px;
+}
+
+
+
+/* =========================
+   8) FOOTER
+========================= */
+footer{
+  padding: 30px 0;
+  text-align: center;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+/* =========================
+   9) RESPONSIVE
+========================= */
+@media (max-width: 768px){
+
+  /* HERO tek kolona düşsün */
+  #hero{
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  /* PORTFOLIO tek kolona düşsün */
+  #portfolio .projects{
+    grid-template-columns: 1fr;
+  }
+
+  /* NAVBAR yazılar küçülsün ve aralar açılsın */
+  .navbar{
+    padding: 0 16px;
+  }
+
+  .nav-links{
+    gap: 16px;
+  }
+
+  .nav-links a{
+    font-size: 14px;
+  }
+
+  .logo{
+    font-size: 20px;
+  }
+
+  /* (İstersen kartlar için; HTML'de .card kullanıyorsan çalışır) */
+  .card h3{
+    font-size: 18px;
+  }
+
+  .card p{
+    font-size: 14px;
+  }
+}
+
+/* =======================
+   İLETİŞİM BÖLÜMÜ
+======================= */
+
+.contact-section {
+  background: #ffffff;
+  padding: 80px 40px;  /* diğer bölümler gibi soldan 40px */
+
+  /* BURADAKİ FLEX MERKEZLEMEYİ KALDIRIYORUZ */
+  /* display: flex; falan YOK */
+}
+
+.contact-inner {
+  max-width: 600px;
+  margin: 0 auto;          /* ortada dursun */
+  padding: 40px 35px;      /* kutunun iç boşluğu */
+  border: 2px solid #000;  /* SİYAH ÇERÇEVE */
+  border-radius: 20px;     /* hafif yuvarlak köşe, istersen 0 yapabilirsin */
+  background: #fff;        /* içi beyaz kalsın */
+}
+
+
+.contact-section h2 {
+  font-size: 2.3rem;
+  font-weight: 700;
+  margin-bottom: 40px;
+  color: #000;
+  font-family: 'Montserrat', sans-serif;
+  text-align: left;    /* diğer başlıklar gibi soldan */
+}
+
+#contactForm {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+/* INPUT + TEXTAREA */
+#contactForm input,
+#contactForm textarea {
+  width: 100%;
+  padding: 15px;
+  font-size: 1rem;
+
+  border-radius: 12px;
+  border: 1px solid #ccc;
+  background: #f9f9f9;
+
+  font-family: 'Montserrat', sans-serif !important;
+}
+
+/* Placeholder yazılarının fontu */
+#contactForm input::placeholder,
+#contactForm textarea::placeholder {
+  font-family: 'Montserrat', sans-serif !important;
+}
+
+/* Focus efekti */
+#contactForm input:focus,
+#contactForm textarea:focus {
+  border-color: #0078ff;
+  background: #fff;
+  outline: none;
+  box-shadow: 0 0 10px rgba(0,120,255,0.2);
+}
+
+/* Gönder butonu */
+.send-btn {
+  padding: 15px;
+  font-size: 1.1rem;
+  background: #000;
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+
+  font-family: 'Montserrat', sans-serif;
+  transition: 0.3s ease;
+}
+
+.send-btn:hover {
+  background: #0078ff;
+  transform: translateY(-3px);
+}
+
+/* Sonuç yazısı */
+#formResult {
+  margin-top: 20px;
+  font-weight: 600;
+  color: #1ec05c;
+}
+/* İLETİŞİM BÖLÜMÜ – JetBrains Mono Font */
+#contactForm input,
+#contactForm textarea,
+#contactForm input::placeholder,
+#contactForm textarea::placeholder,
+.send-btn {
+  font-family: 'JetBrains Mono', monospace !important;
+}
+.contact-section h2 {
+  font-family: 'JetBrains Mono', monospace !important;
+}
+
+
+/* ===== 780px ve altı → 2 satır ama SLIM navbar ===== */
+@media (max-width: 780px){
+  .nav-links{
+    flex-wrap: wrap;
+    justify-content: flex-end;
+
+    gap: 6px 8px;        /* dikey-yatay daha küçük boşluk */
+    max-width: 70%;      /* logoya çarpmadan sağda kalsın */
+  }
+
+  .nav-links a{
+    font-size: 13px;     /* biraz daha küçük */
+    padding: 3px 8px;    /* kabarıklık buradan geliyordu */
+    border-radius: 6px;
+    border-width: 1px;   /* aynı kalsın istersen 0.8px yapma */
+    line-height: 1;      /* buton yüksekliği şişmesin */
+  }
+}
+
+
+/* Scroll ile alttan yukarı gelme efekti */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+/* Görününce bu sınıf eklenecek */
+.reveal.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+/* Footer ana stil ayarı */
+#footer {
+    background: #000;
+    color: #fff;
+    padding: 40px 0;
+    text-align: center;
+}
+
+/* Sosyal medya ikonlarını yatay hizalama (Flex şartnameye uygun) */
+.social-media {
+    display: flex;            /* Flexbox ile hizalama */
+    justify-content: center;  /* Ortala */
+    gap: 20px;                /* İkonlar arası boşluk */
+    margin-bottom: 20px;
+}
+
+/* İkonların görünümü */
+.social-media a i {
+    font-size: 30px;
+    color: #1ec05c;              /* Yeşil ton – senin site konseptin */
+    transition: 0.3s ease;    /* Hover geçiş efekti */
+}
+
+/* Hover efekti (şartname zorunlu) */
+.social-media a i:hover {
+    color: #fff;
+    transform: scale(1.2);    /* Hafif büyüme efekti */
+}
+
+
+
+
